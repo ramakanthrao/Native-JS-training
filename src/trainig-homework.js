@@ -406,7 +406,7 @@ Object.prototype.hash = function(string) {
 
 
 /*
-Array Helpers
+21) Array Helpers
 Link : http://www.codewars.com/kata/array-helpers
 JavaScript:
 */
