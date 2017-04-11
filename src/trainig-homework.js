@@ -335,14 +335,11 @@ function cache(func) {
 Link : http://www.codewars.com/kata/function-composition
 JavaScript:
 */
-function compose() {
-  var funcs = arguments;
-  return function(input) {
-    var num = input;
-    for ( var fid in funcs )
-      num = funcs[funcs.length - fid - 1](num);
-    return num;
-  }
+
+function compose(f, g) {
+  return function() {
+    return f(g.apply(this, arguments));
+  };
 }
 
 /*-----------------end of task -------------------------*/
@@ -353,9 +350,73 @@ function compose() {
 Link : http://www.codewars.com/kata/function-composition-1
 JavaScript:
 */
-function compose(f, g) {
-  return function() {
-    return f(g.apply(this, arguments));
-  };
+function compose() {
+  var funcs = arguments;
+  return function(input) {
+    var num = input;
+    for ( var fid in funcs )
+      num = funcs[funcs.length - fid - 1](num);
+    return num;
+  }
 }
+
+
+
+/*-----------------end of task -------------------------*/
+
+
+/*
+18) SantaClausable Interface
+Link : Link: http://www.codewars.com/kata/santaclausable-interface
+JavaScript:
+*/
+
+function isSantaClausable(obj) {
+  return ['sayHoHoHo', 'distributeGifts', 'goDownTheChimney'].every(meth => typeof obj[meth] === 'function');
+}
+/*-----------------end of task -------------------------*/
+
+/*
+19) new with apply
+Link : http://www.codewars.com/kata/new-with-apply
+JavaScript:
+*/
+function construct(Class) {
+  var obj = Object.create(Class.prototype);
+  Class.apply(obj, Array.prototype.slice.call(arguments, 1));  
+  return obj;
+}
+/*-----------------end of task -------------------------*/
+
+
+/*
+20) Extract Nested Object Reference
+Link: http://www.codewars.com/kata/extract-nested-object-reference
+JavaScript:
+*/
+// return the nested property value if it exists,
+// otherwise return undefined
+Object.prototype.hash = function(string) {
+  return string.split('.').reduce(function(p,n) {
+    return p && p[n];
+  }, this);
+};
+
+/*-----------------end of task -------------------------*/
+
+
+/*
+Array Helpers
+Link : http://www.codewars.com/kata/array-helpers
+JavaScript:
+*/
+// TODO
+
+Array.prototype.square  = function () { return this.map(function(n) { return n*n; }); }
+Array.prototype.cube    = function () { return this.map(function(n) { return n*n*n; }); }
+Array.prototype.average = function () { return this.sum() / this.length; }
+Array.prototype.sum     = function () { return this.reduce(function(a, b) { return a + b; }, 0); }
+Array.prototype.even    = function () { return this.filter(function(item) { return 0 == item % 2; }); }
+Array.prototype.odd     = function () { return this.filter(function(item) { return 0 != item % 2; }); }
+
 /*-----------------end of task -------------------------*/
