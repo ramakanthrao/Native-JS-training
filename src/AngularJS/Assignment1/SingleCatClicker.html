@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<style>
+	img {
+	   width:250px;
+	   height:250px;
+	   float:left;
+	}
+	lable{
+		width:100%;
+		float:left;
+	}
+	p{
+		width:100%;
+		float:left;
+	}
+	.container{
+		width:100%;
+		float:left;
+	}
+	.widget{
+		margine:25px;
+		width:300px;
+		height:300px;
+		float:left;
+	}
+</style>
+<body>
+<div ng-app="CatApp" ng-controller="CatController" class="container">
+    <div class="widget">
+		<lable>Cat A:</lable>
+		<img src="images/CatA.jpg" alt="Cat" ng-click="count=count+1;">
+		<p>No Of Clicks: {{count}}</p>
+	</div>
+</div>  
+    
+<script>
+var app = angular.module('CatApp', []);
+app.controller('CatController', CatController);
+function CatController($scope) {
+    $scope.count= 0;
+}
+</script>
+</body>
+</html>

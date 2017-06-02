@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<style>
+	img {
+	   width:250px;
+	   height:250px;
+	   float:left;
+	}
+	lable{
+		width:100%;
+		float:left;
+	}
+	p{
+		width:100%;
+		float:left;
+	}
+	.container{
+		width:350px;
+		float:left;
+	}
+	.widget{
+		margin:25px;
+		width:300px;
+		height:350px;
+		float:left;
+		border: 1px solid grey;
+	}
+	.widget-full{
+		margin:25px;
+		width:100%;
+		float:left;
+		
+	}
+	select{
+		width:300px;
+		height:50px;
+		font-size:18px;
+		margine:10px;
+		float:left;
+	}
+	input{
+		width:150px;
+		height:50px;
+		font-size:18px;
+		margine:10px;
+		float:left;
+	}
+	.button-group{
+		width:50px;
+		float:right;
+	}
+	.button-group button{
+	}
+	button{
+	height:50px;
+	}
+</style>
+<body>
+
+<div ng-app="CatApp" ng-controller="CatController" class="container">
+	<div class="widget-full">
+		<lable>Search</lable>
+		<input type="text" name="query" ng-model="query" class="form-controle"/>
+		<button ng-click="filter()">Filter/Search</button>
+		<button ng-click="changeOrder()" ng-if="!order">&#8593;</button>
+		<button ng-click="changeOrder()" ng-if="order">&#8595;</button>
+	</div>
+    <div class="widget" ng-if="selectedCats" ng-repeat="selectedCat in selectedCats  | orderBy:'name':order">
+		<lable>{{selectedCat.name}}</lable><lable ng-if="selectedCat.views>1"> &#9745;</lable>
+		<img ng-src="{{selectedCat.source}}" alt="Cat" ng-click="selectedCat.count=selectedCat.count+1;">
+		<lable>Votes : {{selectedCat.votes}} </lable>
+		 
+			<div class="button-group">
+				<button ng-click="selectedCat.votes=selectedCat.votes+1;">&#8593;</button>
+				<button ng-click="selectedCat.votes=selectedCat.votes-1;">&#8595;</button>
+			</div>
+		</lable>
+	</div>
+</div>
+    
+<script>
+var app = angular.module('CatApp', []);
+app.controller('CatController', CatController);
+function CatController($scope) {
+    $scope.fields = ["name","value","count","source","votes","views"];
+	$scope.selectedField = null;
+	$scope.query = null;
+	$scope.order = false;
+     $scope.Cats = [
+            {name: "Cat A", value:1, count: 0, source:"./images/CatA.jpg",votes:0,views:0},
+            {name: "Cat B", value:2, count: 0, source:"./images/CatB.jpg",votes:0,views:0},
+            {name: "Cat C", value:3, count: 0, source:"./images/CatC.jpg",votes:0,views:0},
+            {name: "Cat D", value:4, count: 0, source:"./images/CatD.jpg",votes:0,views:0},
+            {name: "Cat E", value:5, count: 0, source:"./images/CatE.jpg",votes:0,views:0}
+        ];   
+    
+    $scope.selectedCats = null;
+	$scope.changeOrder = function(){
+		$scope.order =  ($scope.order ? false:true);
+	}
+	$scope.tickImg = function(){
+		if($scope.selectedCat){
+			$scope.selectedCat.views++;
+		}
+	}
+	
+	$scope.filter = function(){
+		$scope.selectedCats = $scope.Cats.filter((cat)=>{return cat.name.includes($scope.query)});
+	}
+}
+</script>
+</body>
+</html>

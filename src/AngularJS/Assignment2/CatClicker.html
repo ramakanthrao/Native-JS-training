@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<style>
+	img {
+	   width:250px;
+	   height:250px;
+	   float:left;
+	}
+	lable{
+		width:100%;
+		float:left;
+	}
+	p{
+		width:100%;
+		float:left;
+	}
+	.container{
+		width:100%;
+		float:left;
+	}
+	.widget{
+		margine:25px;
+		width:300px;
+		height:300px;
+		float:left;
+	}
+	.widget-full{
+		margine:25px;
+		width:100%;
+		float:left;
+	}
+	select{
+		width:300px;
+		height:50px;
+		font-size:18px;
+		margine:10px;
+		float:left;
+	}
+	.button-group{
+		width:50px;
+		float:right;
+	}
+	.button-group button{
+	}
+</style>
+<body>
+
+<div ng-app="CatApp" ng-controller="CatController" class="container">
+	<div class="widget-full">
+		<select name="billies" ng-model="selectedCat" ng-options="test.name for test in Cats" ng-change="tickImg();">
+			<option value="">Select A Cat</option>
+		</select>
+	</div>
+    <div class="widget" ng-if="selectedCat">
+		<lable>{{selectedCat.name}}</lable><lable ng-if="selectedCat.views>1"> &#9745;</lable>
+		<img ng-src="{{selectedCat.source}}" alt="Cat" ng-click="selectedCat.count=selectedCat.count+1;">
+		<lable>{{selectedCat.votes}} </lable>
+		 
+			<div class="button-group">
+				<button ng-click="selectedCat.votes=selectedCat.votes+1;">&#8593;</button>
+				<button ng-click="selectedCat.votes=selectedCat.votes-1;">&#8595;</button>
+			</div>
+		</lable>
+	</div>
+</div>
+    
+<script>
+var app = angular.module('CatApp', []);
+app.controller('CatController', CatController);
+function CatController($scope) {
+    
+     $scope.Cats = [
+            {name: "Cat A", value:1, count: 0, source:"images/CatA.jpg",votes:0,views:0},
+            {name: "Cat B", value:2, count: 0, source:"images/CatB.jpg",votes:0,views:0},
+            {name: "Cat C", value:3, count: 0, source:"images/CatC.jpg",votes:0,views:0},
+            {name: "Cat D", value:4, count: 0, source:"images/CatD.jpg",votes:0,views:0},
+            {name: "Cat E", value:5, count: 0, source:"images/CatE.jpg",votes:0,views:0}
+        ];   
+    
+    $scope.selectedCat = null;
+	$scope.tickImg = function(){
+		if($scope.selectedCat){
+			$scope.selectedCat.views++;
+		}
+	}
+}
+</script>
+</body>
+</html>

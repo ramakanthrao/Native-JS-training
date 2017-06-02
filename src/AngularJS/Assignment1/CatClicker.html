@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<style>
+	img {
+	   width:250px;
+	   height:250px;
+	   float:left;
+	}
+	lable{
+		width:100%;
+		float:left;
+	}
+	p{
+		width:100%;
+		float:left;
+	}
+	.container{
+		width:100%;
+		float:left;
+	}
+	.widget{
+		margine:25px;
+		width:300px;
+		height:300px;
+		float:left;
+	}
+	.widget-full{
+		margine:25px;
+		width:100%;
+		float:left;
+	}
+	select{
+		width:300px;
+		height:50px;
+		font-size:18px;
+		margine:10px;
+		float:left;
+	}
+</style>
+<body>
+
+<div ng-app="CatApp" ng-controller="CatController" class="container">
+	<div class="widget-full">
+		<select name="billies" ng-model="selectedCat" ng-options="test.name for test in Cats">
+			<option value="">Select A Cat</option>
+		</select>
+	</div>
+    <div class="widget" ng-if="selectedCat">
+		<lable>{{selectedCat.name}}</lable>
+		<img ng-src="{{selectedCat.source}}" alt="Cat" ng-click="selectedCat.count=selectedCat.count+1;">
+		<p>No Of Clicks: {{selectedCat.count}}</p>
+	</div>
+</div>
+    
+<script>
+var app = angular.module('CatApp', []);
+app.controller('CatController', CatController);
+function CatController($scope) {
+    
+     $scope.Cats = [
+            {name: "Cat A", value:1, count: 0, source:"images/CatA.jpg"},
+            {name: "Cat B", value:2, count: 0, source:"images/CatB.jpg"},
+            {name: "Cat C", value:3, count: 0, source:"images/CatC.jpg"},
+            {name: "Cat D", value:4, count: 0, source:"images/CatD.jpg"},
+            {name: "Cat E", value:5, count: 0, source:"images/CatE.jpg"}
+        ];   
+    
+    $scope.selectedCat = null;
+}
+</script>
+</body>
+</html>
